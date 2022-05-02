@@ -11,7 +11,7 @@ public class Window extends JFrame {
 
     public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public static final String[] engines = { "CYCLES", "BLENDER_EEVEE" };
+    public static final String[] engines = {"CYCLES", "BLENDER_EEVEE"};
 
     public JComboBox<String> renderEngine;
 
@@ -21,7 +21,8 @@ public class Window extends JFrame {
     public FilePicker pathPicker;
     public BarField outputName;
     public BarField frameNumber;
-    public BarField port;
+    public BarField sshPort;
+    public BarField ftpPort;
 
     public JButton button;
 
@@ -44,13 +45,14 @@ public class Window extends JFrame {
         pathPicker = new FilePicker();
         outputName = new BarField("Image Name: ", false);
         frameNumber = new BarField("Frame Number: ", false);
-        port = new BarField("Port (Default 22): ", true);
+        sshPort = new BarField("SSH Port (Default 22): ", false);
+        ftpPort = new BarField("FTP Port (Default 20): ", false);
 
         renderEngine = new JComboBox<>(engines);
 
         button = new JButton("SSH and Render");
 
-        button.addActionListener(e -> WiComm.commitBlend(username.getField(), ipAddr.getField(), password.getField(), port.getField(), pathPicker.getPickedFilePath(), outputName.getField(), (String) renderEngine.getSelectedItem(), frameNumber.getField()));
+        button.addActionListener(e -> WiComm.commitBlend(username.getField(), ipAddr.getField(), password.getField(), sshPort.getField(), ftpPort.getField(), pathPicker.getPickedFilePath(), outputName.getField(), (String) renderEngine.getSelectedItem(), frameNumber.getField()));
 
         // Component Addition
 
@@ -69,7 +71,8 @@ public class Window extends JFrame {
         midTwo.add(outputName);
         midTwo.add(frameNumber);
 
-        bottom.add(port);
+        bottom.add(sshPort);
+        bottom.add(ftpPort);
         bottom.add(renderEngine);
         bottom.add(button);
 
@@ -79,6 +82,7 @@ public class Window extends JFrame {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(w, h);
+        this.setResizable(false);
         this.setLocation(screenSize.width / 2 - w / 2, screenSize.height / 2 - h / 2);
         this.setVisible(true);
     }

@@ -4,25 +4,25 @@ import javax.swing.*;
 import java.io.ByteArrayOutputStream;
 
 public class WiComm {
-    public static void commitBlend(String username, String ip, String password, String port, String filePath, String outputFileName, String engine, String frame) {
+    public static void commitBlend(String username, String ip, String password, String sshPort, String ftpPort, String filePath, String outputFileName, String engine, String frame) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 int frameNum = Main.tryParse(frame, 1);
 
-                ftpSessionSend(username, ip, password, port, filePath);
+                ftpSessionSend(username, ip, password, sshPort, filePath);
 
                 String blendFile = filePath.substring(filePath.lastIndexOf('\\'));
                 String blendPath = "/tmp/" + blendFile;
 
-                sshBlender(username, ip, password, port, blendPath, outputFileName, engine, frameNum);
+                sshBlender(username, ip, password, sshPort, blendPath, outputFileName, engine, frameNum);
 
-                ftpSessionDownload(username, ip, password, port, filePath, outputFileName + ".png", frameNum);
+                ftpSessionDownload(username, ip, password, ftpPort, filePath, outputFileName + ".png", frameNum);
 
-                ftpSessionDelete(username, ip, password, port, blendFile);
+                ftpSessionDelete(username, ip, password, ftpPort, blendFile);
 
-                ftpSessionDelete(username, ip, password, port, addFrame(outputFileName + ".png", frameNum));
+                ftpSessionDelete(username, ip, password, ftpPort, addFrame(outputFileName + ".png", frameNum));
             }
         }).start();
 
