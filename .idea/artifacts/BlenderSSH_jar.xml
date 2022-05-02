@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BlenderSSH:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BlenderSSH_jar</output-path>
+    <root id="archive" name="BlenderSSH.jar">
+      <element id="module-output" name="BlenderSSH" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/JavaLibraries/jsch-0.1.55.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
