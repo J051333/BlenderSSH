@@ -33,7 +33,7 @@ public class WiComm {
         ChannelExec channel = null;
 
         int port = Main.tryParse(portStr, 22);
-
+        
         try {
             session = new JSch().getSession(username, ip, port);
             session.setConfig("StrictHostKeyChecking", "no");
